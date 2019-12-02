@@ -10,7 +10,7 @@
     </parent>
     <groupId>pers.liujunyi.cloud</groupId>
     <artifactId>dict-core</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>pers.liujunyi.cloud.dict</name>
     <description>数据字典</description>
 

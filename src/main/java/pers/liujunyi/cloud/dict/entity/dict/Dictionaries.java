@@ -51,15 +51,15 @@ public class Dictionaries extends BaseEntity {
     private Long pid;
 
     /** 完整的层级ID */
-    @Column(columnDefinition="bigint(50) NOT NULL COMMENT '完整的层级ID'")
+    @Column(columnDefinition="varchar(50) NOT NULL COMMENT '完整的层级ID'")
     private String fullDictParent;
 
     /** 完整的层级代码 */
-    @Column(columnDefinition="bigint(150) NOT NULL COMMENT '完整的层级代码'")
+    @Column(columnDefinition="varchar(150) NOT NULL COMMENT '完整的层级代码'")
     private String fullDictParentCode;
 
     /** 完整的字典代码  (包含父级) */
-    @Column(columnDefinition="bigint(150) NOT NULL COMMENT '完整的字典代码  (包含父级)'")
+    @Column(columnDefinition="varchar(150) NOT NULL COMMENT '完整的字典代码  (包含父级)'")
     private String fullDictCode;
 
     /** 排序值 */

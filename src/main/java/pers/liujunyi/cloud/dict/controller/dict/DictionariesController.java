@@ -53,7 +53,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "保存数据(数据加密处理)", notes = "适用于保存数据 请求示例：127.0.0.1:18080/api/v1/dict/s")
+    @ApiOperation(value = "保存数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
     })
@@ -72,7 +72,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "单条删除数据(数据加密处理)", notes = "适用于单条删除数据 请求示例：127.0.0.1:18080/api/v1/dict/d")
+    @ApiOperation(value = "单条删除数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "String")
@@ -93,7 +93,7 @@ public class DictionariesController extends BaseController {
      * @param param 　 多个id 用 , 隔开
      * @return
      */
-    @ApiOperation(value = "删除多条数据(数据加密处理)", notes = "适用于批量删除数据 请求示例：127.0.0.1:18080/api/v1/dict/b/d")
+    @ApiOperation(value = "删除多条数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "ids", value = "ids",  required = true, dataType = "String")
@@ -113,7 +113,7 @@ public class DictionariesController extends BaseController {
      * @return
      */
 
-    @ApiOperation(value = "分页列表数据(数据加密处理)", notes = "适用于分页grid 显示数据 请求示例：127.0.0.1:18080/api/v1/table/dict/g")
+    @ApiOperation(value = "分页列表数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
     })
@@ -129,7 +129,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "字典tree 结构数据 (只包含正常数据  禁用数据不展示)", notes = "适用于 根据pid  显示 tree 数据 请求示例：127.0.0.1:18080/api/v1/tree/dict/z")
+    @ApiOperation(value = "字典tree 结构数据 (只包含正常数据  禁用数据不展示)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "Long")
@@ -146,7 +146,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "根据 fullParentCode 获取  字典tree 结构数据 (只包含正常数据  禁用数据不展示)", notes = "适用于 根据 fullParentCode 显示 tree 数据 请求示例：127.0.0.1:18080/api/v1/tree/p/z")
+    @ApiOperation(value = "根据 fullParentCode 获取  字典tree 结构数据 (只包含正常数据  禁用数据不展示)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "codes", value = "codes",  required = true, dataType = "String")
@@ -163,7 +163,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "字典tree 结构数据 (包含禁用数据 )", notes = "适用于 根据pid  显示 tree 数据 请求示例：127.0.0.1:18080/api/v1/tree/dict/all/z")
+    @ApiOperation(value = "字典tree 结构数据 (包含禁用数据 )")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "Long")
@@ -181,7 +181,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "单条修改数据状态(数据加密处理)", notes = "适用于修改数据状态 请求示例：127.0.0.1:18080/api/v1/dict/p")
+    @ApiOperation(value = "单条修改数据状态(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "Long"),
@@ -203,7 +203,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @ApiOperation(value = "批量修改数据状态(数据加密处理)", notes = "适用于修改数据状态 请求示例：127.0.0.1:18080/api/v1/dict/b/p")
+    @ApiOperation(value = "批量修改数据状态(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "ids", value = "ids",  required = true, dataType = "String"),
@@ -223,7 +223,7 @@ public class DictionariesController extends BaseController {
      * @param empty
      * @return
      */
-    @ApiOperation(value = "字典 Combox", notes = "适用于下拉框选择 请求示例：127.0.0.1:18080/api/v1/dict/combox")
+    @ApiOperation(value = "字典 Combox")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "parentCode", value = "父级字典代码",  required = true),
@@ -242,7 +242,7 @@ public class DictionariesController extends BaseController {
      * @param empty
      * @return
      */
-    @ApiOperation(value = "字典 Combox (数据加密处理)", notes = "适用于下拉框选择 请求示例：127.0.0.1:18080/api/v1/dict/box")
+    @ApiOperation(value = "字典 Combox (数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "parentCode", value = "父级字典代码",  required = true),
@@ -262,7 +262,7 @@ public class DictionariesController extends BaseController {
      * @param  parentCode
      * @return
      */
-    @ApiOperation(value = "字典代码转换为字典值", notes = "适用于字典代码转换为字典值 请求示例：127.0.0.1:18080/api/v1/dict/dictName")
+    @ApiOperation(value = "字典代码转换为字典值")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "parentCode", value = "父级字典代码",  required = true),
@@ -284,7 +284,7 @@ public class DictionariesController extends BaseController {
      * @param
      * @return
      */
-    @ApiOperation(value = "字典 fullParentCode 父级代码 转换为字典值 map", notes = "适用于字典 fullParentCode 父级代码 转换为字典值 map 请求示例：127.0.0.1:18080/api/v1/dict/map/dictName")
+    @ApiOperation(value = "字典 fullParentCode 父级代码 转换为字典值 map")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "fullParentCode", value = "父级字典代码",  required = true)
@@ -302,7 +302,7 @@ public class DictionariesController extends BaseController {
      * @param fullParentCodes
      * @return
      */
-    @ApiOperation(value = "字典 fullParentCode 父级代码 转换为字典值 map", notes = "适用于字典 fullParentCode 父级代码 转换为字典值 map 请求示例：127.0.0.1:18080/api/v1/dict/map/dictName")
+    @ApiOperation(value = "字典 fullParentCode 父级代码 转换为字典值 map")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
             @ApiImplicitParam(name = "fullParentCodes", value = "父级字典代码",  required = true),
@@ -317,14 +317,12 @@ public class DictionariesController extends BaseController {
     }
 
 
-
-
     /**
      *  同步数据到es中
      * @param
      * @return
      */
-    @ApiOperation(value = "同步数据", notes = "同步数据 请求示例：127.0.0.1:18080/api/v1/dict/sync")
+    @ApiOperation(value = "同步数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
     })

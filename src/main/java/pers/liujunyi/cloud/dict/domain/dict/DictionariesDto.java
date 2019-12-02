@@ -30,14 +30,14 @@ public class DictionariesDto extends BaseDto {
     @ApiModelProperty(value = "字典代码")
     @NotBlank(message = "字典代码必须填写")
     @Length(min = 0, max = 20, message = "字典代码 最多可以输入20个字符")
-    @Pattern(regexp = RegexpUtils.ALNUM_CODE_REGEXP, message = "字典代码" + RegexpUtils.ALNUM_CODE_MSG)
+    @Pattern(regexp = RegexpUtils.CODE_REGEXP, message = "字典代码" + RegexpUtils.CODE_MSG)
     private String dictCode;
 
     /** 字典名称 */
     @ApiModelProperty(value = "字典名称")
     @NotBlank(message = "字典名称必须填写")
     @Length(min = 0, max = 32, message = "字典名称 最多可以输入32个字符")
-    @Pattern(regexp = RegexpUtils.ALNUM_NAME_REGEXP, message = "字典名称" + RegexpUtils.ALNUM_NAME_MSG)
+    @Pattern(regexp = RegexpUtils.NAME_REGEXP, message = "字典名称" + RegexpUtils.NAME_MSG)
     private String dictName;
 
     /** 上级ID */
@@ -55,7 +55,7 @@ public class DictionariesDto extends BaseDto {
     /** 标签标注 */
     @ApiModelProperty(value = "标签标注")
     @Length(min = 0, max = 32, message = "标签 最多可以输入32个字符")
-    @Pattern(regexp = RegexpUtils.ALNUM_NAME_REGEXP, message = "标签" + RegexpUtils.ALNUM_NAME_MSG)
+    @Pattern(regexp = RegexpUtils.NAME_REGEXP, message = "标签" + RegexpUtils.NAME_MSG)
     private String dictLabel;
 
     /** 描述信息 */
@@ -67,19 +67,19 @@ public class DictionariesDto extends BaseDto {
     /** 预留字段1 */
     @ApiModelProperty(value = "attributeOne")
     @Length(min = 0, max = 45, message = "attributeOne 最多可以输入45个字符")
-    @Pattern(regexp = RegexpUtils.ALNUM_NAME_REGEXP, message = "attributeOne" + RegexpUtils.ALNUM_NAME_MSG)
+    @Pattern(regexp = RegexpUtils.NAME_REGEXP, message = "attributeOne" + RegexpUtils.NAME_MSG)
     private String attributeOne;
 
     /** 预留字段2 */
     @ApiModelProperty(value = "attributeTwo")
     @Length(min = 0, max = 65, message = "attributeTwo 最多可以输入65个字符")
-    @Pattern(regexp = RegexpUtils.ALNUM_NAME_REGEXP, message = "attributeTwo" + RegexpUtils.ALNUM_NAME_MSG)
+    @Pattern(regexp = RegexpUtils.NAME_REGEXP, message = "attributeTwo" + RegexpUtils.NAME_MSG)
     private String attributeTwo;
 
     /** 预留字段3 */
     @ApiModelProperty(value = "attributeThree")
     @Length(min = 0, max = 100, message = "attributeThree 最多可以输入100个字符")
-    @Pattern(regexp = RegexpUtils.ALNUM_NAME_REGEXP, message = "attributeThree" + RegexpUtils.ALNUM_NAME_MSG)
+    @Pattern(regexp = RegexpUtils.NAME_REGEXP, message = "attributeThree" + RegexpUtils.NAME_MSG)
     private String attributeThree;
 
 
