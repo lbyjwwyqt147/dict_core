@@ -67,27 +67,6 @@ public class DictionariesController extends BaseController {
 
 
     /**
-     * 单条删除数据(数据加密处理)
-     *
-     * @param param
-     * @return
-     */
-    @ApiOperation(value = "单条删除数据(数据加密处理)")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
-            @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "String")
-    })
-    @Encrypt
-    @Decrypt
-    @DeleteMapping(value = "verify/dict/d")
-    @ApiVersion(1)
-    public ResultInfo encryptSingleDelete(@Valid @RequestBody IdParamDto param) {
-        return this.dictionariesService.deleteSingle(Long.valueOf(param.getId()));
-    }
-
-
-
-    /**
      * 批量删除(数据加密处理)
      *
      * @param param 　 多个id 用 , 隔开
@@ -172,28 +151,6 @@ public class DictionariesController extends BaseController {
     @ApiVersion(1)
     public List<ZtreeNode> allDictZTree(@Valid IdParamDto param ) {
         return this.dictionariesMongoService.dictTree(param.getId(), null);
-    }
-
-
-    /**
-     *  单条修改数据状态(数据加密处理)
-     *
-     * @param param
-     * @return
-     */
-    @ApiOperation(value = "单条修改数据状态(数据加密处理)")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
-            @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "status", value = "status",  required = true, dataType = "integer"),
-            @ApiImplicitParam(name = "dataVersion", value = "version",  required = true, dataType = "integer")
-    })
-    @Encrypt
-    @Decrypt
-    @PutMapping(value = "verify/dict/p")
-    @ApiVersion(1)
-    public ResultInfo encryptUpdateDataStatus(@Valid @RequestBody IdParamDto param ) {
-        return this.dictionariesService.updateStatus(param.getStatus(), param.getId(), param.getDataVersion());
     }
 
 

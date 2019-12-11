@@ -1,7 +1,7 @@
 package pers.liujunyi.cloud.dict.service.dict;
 
 import pers.liujunyi.cloud.common.restful.ResultInfo;
-import pers.liujunyi.cloud.common.service.BaseService;
+import pers.liujunyi.cloud.common.service.BaseJpaMongoService;
 import pers.liujunyi.cloud.dict.domain.dict.DictionariesDto;
 import pers.liujunyi.cloud.dict.entity.dict.Dictionaries;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  * @author ljy
  */
-public interface DictionariesService extends BaseService<Dictionaries, Long> {
+public interface DictionariesService extends BaseJpaMongoService<Dictionaries, Long> {
 
     /**
      * 保存数据
@@ -37,14 +37,6 @@ public interface DictionariesService extends BaseService<Dictionaries, Long> {
      */
     ResultInfo updateStatus(Byte status, List<Long> ids, String putParams);
 
-    /**
-     * 修改状态
-     * @param status
-     * @param id
-     * @param version
-     * @return
-     */
-    ResultInfo updateStatus(Byte status, Long id, Long version);
 
     /**
      * 批量删除
@@ -53,12 +45,6 @@ public interface DictionariesService extends BaseService<Dictionaries, Long> {
      */
     ResultInfo deleteBatch(List<Long> ids);
 
-    /**
-     * 单条删除
-     * @param id
-     * @return
-     */
-    ResultInfo deleteSingle(Long id);
 
     /**
      * 同步数据到es中

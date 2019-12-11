@@ -24,6 +24,21 @@ public interface DictionariesMongoService extends BaseMongoService<Dictionaries,
 
 
     /**
+     *  获取 存在 叶子节点的 字典数据
+     * @param pid
+     */
+    List<Dictionaries> findByPidIn(List<Long> pid);
+
+    /**
+     *  根据  pid  dictCode 获取数据
+     * @param pid
+     * @param dictCode
+     * @return
+     */
+    List<Dictionaries> findByPidAndDictCode(Long pid, String dictCode);
+
+
+    /**
      * 根据 pid 获取 符合 ztree 结构的数据
      * @param pid
      * @param status 状态

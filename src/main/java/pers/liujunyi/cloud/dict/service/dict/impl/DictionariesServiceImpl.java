@@ -6,20 +6,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import pers.liujunyi.cloud.common.repository.jpa.BaseRepository;
+import pers.liujunyi.cloud.common.repository.jpa.BaseJpaRepository;
 import pers.liujunyi.cloud.common.restful.ResultInfo;
 import pers.liujunyi.cloud.common.restful.ResultUtil;
-import pers.liujunyi.cloud.common.service.impl.BaseServiceImpl;
+import pers.liujunyi.cloud.common.service.impl.BaseJpaMongoServiceImpl;
 import pers.liujunyi.cloud.common.util.DozerBeanMapperUtil;
-import pers.liujunyi.cloud.common.util.UserUtils;
 import pers.liujunyi.cloud.dict.domain.dict.DictionariesDto;
 import pers.liujunyi.cloud.dict.entity.dict.Dictionaries;
 import pers.liujunyi.cloud.dict.repository.jpa.dict.DictionariesRepository;
-import pers.liujunyi.cloud.dict.repository.mongo.dict.DictionariesMongoRepository;
+import pers.liujunyi.cloud.dict.service.dict.DictionariesMongoService;
 import pers.liujunyi.cloud.dict.service.dict.DictionariesService;
 import pers.liujunyi.cloud.dict.util.DictConstant;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /***
@@ -34,16 +36,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ljy
  */
 @Service
-public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long> implements DictionariesService {
+public class DictionariesServiceImpl extends BaseJpaMongoServiceImpl<Dictionaries, Long> implements DictionariesService {
 
     @Autowired
     private DictionariesRepository dictionariesRepository;
     @Autowired
-    private DictionariesMongoRepository dictionariesMongoRepository;
-    @Autowired
-    private UserUtils userUtils;
+    private DictionariesMongoService dictionariesMongoService;
 
-    public DictionariesServiceImpl(BaseRepository<Dictionaries, Long> baseRepository) {
+    public DictionariesServiceImpl(BaseJpaRepository<Dictionaries, Long> baseRepository) {
         super(baseRepository);
     }
 
@@ -54,10 +54,7 @@ public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long>
             return ResultUtil.params("字典代码重复,请重新输入.");
         }
         Dictionaries dictionaries = DozerBeanMapperUtil.copyProperties(record, Dictionaries.class);
-        boolean add = true;
-        if (record.getId() != null) {
-            add = false;
-        }
+        boolean add = record.getId() == null ? true : false;
         if (record.getPid().longValue() > 0) {
             Dictionaries parent = this.selectById(record.getPid());
             dictionaries.setFullDictParent(parent.getFullDictParent() + ":"  + parent.getId());
@@ -78,25 +75,23 @@ public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long>
         if (record.getStatus() == null) {
             dictionaries.setStatus(DictConstant.ENABLE_STATUS);
         }
-        if (!add) {
-            dictionaries.setUpdateTime(new Date());
-            dictionaries.setUpdateUserId(this.userUtils.getPresentLoginUserId());
-        }
         Dictionaries saveObj = this.dictionariesRepository.save(dictionaries);
         if (saveObj == null || saveObj.getId() == null) {
             return ResultUtil.fail();
         }
         if (!add) {
             saveObj.setDataVersion(saveObj.getDataVersion() + 1);
+        } else {
+            saveObj.setDataVersion(1L);
         }
-        this.dictionariesMongoRepository.save(saveObj);
+        this.dictionariesMongoService.save(saveObj);
         return ResultUtil.success(saveObj.getId());
     }
 
     @Override
     public ResultInfo updateStatus(Byte status, List<Long> ids, String putParams) {
         if (status.byteValue() == 1) {
-            List<Dictionaries> list = this.dictionariesMongoRepository.findByPidIn(ids);
+            List<Dictionaries> list = this.dictionariesMongoService.findByPidIn(ids);
             if (!CollectionUtils.isEmpty(list)) {
                 return ResultUtil.params("无法被禁用.");
             }
@@ -105,14 +100,14 @@ public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long>
         if (count > 0) {
             JSONArray jsonArray = JSONArray.parseArray(putParams);
             int jsonSize = jsonArray.size();
-            Map<String, Map<String, Object>> sourceMap = new ConcurrentHashMap<>();
+            Map<Long, Map<String, Object>> sourceMap = new ConcurrentHashMap<>();
             for(int i = 0; i < jsonSize; i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Map<String, Object> docDataMap = new HashMap<>();
                 docDataMap.put("status", status);
                 docDataMap.put("updateTime", System.currentTimeMillis());
                 docDataMap.put("dataVersion", jsonObject.getLongValue("dataVersion") + 1);
-                sourceMap.put(jsonObject.getString("id"), docDataMap);
+                sourceMap.put(jsonObject.getLongValue("id"), docDataMap);
             }
             // 更新 Mongo 中的数据
             super.updateMongoDataByIds(sourceMap);
@@ -121,47 +116,19 @@ public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long>
         return ResultUtil.fail();
     }
 
-    @Override
-    public ResultInfo updateStatus(Byte status, Long id, Long version) {
-        if (status.byteValue() == 1) {
-            List<Dictionaries> list = this.dictionariesMongoRepository.findByPid(id);
-            if (!CollectionUtils.isEmpty(list)) {
-                return ResultUtil.params("无法被禁用.");
-            }
-        }
-        int count = this.dictionariesRepository.setStatusById(status, new Date(), id, version);
-        if (count > 0) {
-            Map<String, Map<String, Object>> sourceMap = new ConcurrentHashMap<>();
-            Map<String, Object> docDataMap = new HashMap<>();
-            docDataMap.put("status", status);
-            docDataMap.put("dataVersion", version + 1);
-            docDataMap.put("updateTime", System.currentTimeMillis());
-            sourceMap.put(String.valueOf(id), docDataMap);
-            super.updateMongoDataByIds(sourceMap);
-            return ResultUtil.success();
-        }
-        return ResultUtil.fail();
-    }
 
     @Override
     public ResultInfo deleteBatch(List<Long> ids) {
-        List<Dictionaries> list = this.dictionariesMongoRepository.findByPidIn(ids);
+        List<Dictionaries> list = this.dictionariesMongoService.findByPidIn(ids);
         if (!CollectionUtils.isEmpty(list)) {
             return ResultUtil.params("无法被删除.");
         }
         int count = this.dictionariesRepository.deleteAllByIdIn(ids);
         if (count > 0) {
-            this.dictionariesMongoRepository.deleteByIdIn(ids);
+            this.dictionariesMongoService.deleteAllByIdIn(ids);
             return ResultUtil.success();
         }
         return ResultUtil.fail();
-    }
-
-    @Override
-    public ResultInfo deleteSingle(Long id) {
-        this.dictionariesRepository.deleteById(id);
-        this.dictionariesMongoRepository.deleteById(id);
-        return ResultUtil.success();
     }
 
     @Override
@@ -196,7 +163,7 @@ public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long>
      * @return
      */
     private Boolean checkDictCodeData (Long pid, String dictCode) {
-        List<Dictionaries> exists = this.dictionariesMongoRepository.findByPidAndDictCode(pid, dictCode);
+        List<Dictionaries> exists = this.dictionariesMongoService.findByPidAndDictCode(pid, dictCode);
         if (CollectionUtils.isEmpty(exists)) {
             return false;
         }
@@ -209,10 +176,6 @@ public class DictionariesServiceImpl extends BaseServiceImpl<Dictionaries, Long>
      * @return
      */
     private Dictionaries selectById(Long id) {
-        Optional<Dictionaries> optional = this.dictionariesMongoRepository.findById(id);
-        if (optional.isPresent()) {
-            return optional.get();
-        }
-        return null;
+        return this.dictionariesMongoService.getOne(id);
     }
 }

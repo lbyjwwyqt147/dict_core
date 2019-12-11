@@ -30,6 +30,13 @@ public interface DictionariesMongoRepository extends BaseMongoRepository<Diction
     List<Dictionaries> findByPidAndStatusOrderByPriorityAsc(Long pid, Byte status);
 
     /**
+     *  根据 pid 获取字典数据
+     * @param pid
+     * @return
+     */
+    List<Dictionaries> findByPidOrderByPriorityAsc(Long pid);
+
+    /**
      * 根据父级代码 获取字典数据
      * @param fullParentCode
      * @param status

@@ -46,11 +46,27 @@ public class DictionariesMongoServiceImpl extends BaseMongoServiceImpl<Dictionar
     }
 
     @Override
+    public List<Dictionaries> findByPidIn(List<Long> pid) {
+        return this.dictionariesMongoRepository.findByPidIn(pid);
+    }
+
+    @Override
+    public List<Dictionaries> findByPidAndDictCode(Long pid, String dictCode) {
+        return this.dictionariesMongoRepository.findByPidAndDictCode(pid, dictCode);
+    }
+
+    @Override
     public List<ZtreeNode> dictTree(Long pid, Byte status) {
-        if (pid == null || pid.longValue() == 0) {
-            pid = null;
+        List<Dictionaries> list = null;
+        if (pid != null) {
+            if (status != null) {
+                list = this.dictionariesMongoRepository.findByPidAndStatusOrderByPriorityAsc(pid,  status);
+            } else {
+                list = this.dictionariesMongoRepository.findByPid(pid);
+            }
+        } else {
+            list =  this.dictionariesMongoRepository.findAll(Sort.by(Sort.Direction.ASC, "priority"));
         }
-        List<Dictionaries> list = this.dictionariesMongoRepository.findByPidAndStatusOrderByPriorityAsc(pid, status);
         return this.startBuilderZtree(list);
     }
 
