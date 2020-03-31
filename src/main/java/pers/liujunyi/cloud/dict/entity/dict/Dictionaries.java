@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import pers.liujunyi.cloud.common.annotation.CustomerField;
 import pers.liujunyi.cloud.common.entity.BaseEntity;
 
 import javax.persistence.Column;
@@ -38,27 +39,33 @@ public class Dictionaries extends BaseEntity {
     private static final long serialVersionUID = 4273145793432055139L;
 
     /** 字典代码 */
+    @CustomerField( desc = "字典代码")
     @Column(length = 20, nullable = false, columnDefinition="varchar(20) NOT NULL COMMENT '字典代码'")
     private String dictCode;
 
     /** 字典名称 */
+    @CustomerField( desc = "字典名称")
     @Column(length = 32, nullable = false, columnDefinition="varchar(32) NOT NULL COMMENT '字典名称'")
     private String dictName;
 
     /** 上级ID */
+    @CustomerField(isLog = false)
     @Column(nullable = false, columnDefinition="bigint(20) DEFAULT '0' NOT NULL COMMENT '上级ID'")
     @Indexed
     private Long pid;
 
     /** 完整的层级ID */
+    @CustomerField(isLog = false)
     @Column(columnDefinition="varchar(50) NOT NULL COMMENT '完整的层级ID'")
     private String fullDictParent;
 
     /** 完整的层级代码 */
+    @CustomerField(isLog = false)
     @Column(columnDefinition="varchar(150) NOT NULL COMMENT '完整的层级代码'")
     private String fullDictParentCode;
 
     /** 完整的字典代码  (包含父级) */
+    @CustomerField(isLog = false)
     @Column(columnDefinition="varchar(150) NOT NULL COMMENT '完整的字典代码  (包含父级)'")
     private String fullDictCode;
 
@@ -81,18 +88,22 @@ public class Dictionaries extends BaseEntity {
     private Byte status;
 
     /** 层次级别 */
+    @CustomerField(isLog = false)
     @Column(columnDefinition="tinyint(4) DEFAULT '1' COMMENT '层次级别'")
     private Byte dictLevel;
 
     /** 预留字段1 */
+    @CustomerField()
     @Column(columnDefinition="varchar(45) DEFAULT NULL COMMENT '预留字段1'")
     private String attributeOne;
 
     /** 预留字段2 */
+    @CustomerField()
     @Column(columnDefinition="varchar(65) DEFAULT NULL COMMENT '预留字段2'")
     private String attributeTwo;
 
     /** 预留字段3 */
+    @CustomerField()
     @Column(columnDefinition="varchar(100) DEFAULT NULL COMMENT '预留字段3'")
     private String attributeThree;
 
