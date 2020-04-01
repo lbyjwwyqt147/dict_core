@@ -75,7 +75,7 @@ public class DictionariesController extends BaseController {
      * @param param 　 多个id 用 , 隔开
      * @return
      */
-    @MethodLog(desc = "删除数据", operModule = "数据字典", operType = OperateLogType.DELETE, paramIsArray = true, serviceClass = "DictionariesService")
+    @MethodLog(desc = "删除数据", operModule = "数据字典", operType = OperateLogType.DELETE, paramIsArray = true, serviceClass = "DictionariesService", findDataMethod = "findByIdIn")
     @ApiOperation(value = "删除多条数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
@@ -164,7 +164,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @MethodLog(desc = "修改数据状态", operModule = "数据字典", operType = OperateLogType.UPDATE, paramIsArray = true, serviceClass = "DictionariesService")
+    @MethodLog(desc = "修改数据状态", operModule = "数据字典", operType = OperateLogType.UPDATE, paramIsArray = true, serviceClass = "DictionariesService", findDataMethod = "findByIdIn")
     @ApiOperation(value = "批量修改数据状态(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
