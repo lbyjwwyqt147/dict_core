@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pers.liujunyi.cloud.common.annotation.ApiVersion;
-import pers.liujunyi.cloud.common.annotation.MethodLog;
+import pers.liujunyi.cloud.common.annotation.ControllerMethodLog;
 import pers.liujunyi.cloud.common.controller.BaseController;
 import pers.liujunyi.cloud.common.dto.IdParamDto;
 import pers.liujunyi.cloud.common.encrypt.annotation.Decrypt;
@@ -19,6 +19,7 @@ import pers.liujunyi.cloud.common.util.SystemUtils;
 import pers.liujunyi.cloud.common.vo.tree.ZtreeNode;
 import pers.liujunyi.cloud.dict.domain.dict.DictionariesDto;
 import pers.liujunyi.cloud.dict.domain.dict.DictionariesQueryDto;
+import pers.liujunyi.cloud.dict.entity.dict.Dictionaries;
 import pers.liujunyi.cloud.dict.service.dict.DictionariesMongoService;
 import pers.liujunyi.cloud.dict.service.dict.DictionariesService;
 import pers.liujunyi.cloud.dict.util.DictConstant;
@@ -55,7 +56,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @MethodLog(desc = "保存数据", operModule = "数据字典", serviceClass = "DictionariesService")
+    @ControllerMethodLog(desc = "保存数据", operModule = "数据字典", serviceClass = DictionariesService.class, entityBeanClass = Dictionaries.class)
     @ApiOperation(value = "保存数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
@@ -75,7 +76,7 @@ public class DictionariesController extends BaseController {
      * @param param 　 多个id 用 , 隔开
      * @return
      */
-    @MethodLog(desc = "删除数据", operModule = "数据字典", operType = OperateLogType.DELETE)
+    @ControllerMethodLog(desc = "删除数据", operModule = "数据字典", operType = OperateLogType.DELETE, serviceClass = DictionariesService.class, entityBeanClass = Dictionaries.class)
     @ApiOperation(value = "删除多条数据(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
@@ -164,7 +165,7 @@ public class DictionariesController extends BaseController {
      * @param param
      * @return
      */
-    @MethodLog(desc = "修改数据状态", operModule = "数据字典", operType = OperateLogType.UPDATE, paramIsArray = true, serviceClass = "DictionariesService", findDataMethod = "findByIdIn")
+    @ControllerMethodLog(desc = "修改数据状态", operModule = "数据字典", operType = OperateLogType.UPDATE, paramIsArray = true, serviceClass = DictionariesService.class, entityBeanClass = Dictionaries.class, findDataMethod = "findByIdIn")
     @ApiOperation(value = "批量修改数据状态(数据加密处理)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
