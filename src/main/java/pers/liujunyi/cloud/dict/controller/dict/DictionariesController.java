@@ -59,7 +59,7 @@ public class DictionariesController extends BaseController {
     @ControllerMethodLog(desc = "保存数据", operModule = "数据字典", serviceClass = DictionariesService.class, entityBeanClass = Dictionaries.class)
     @ApiOperation(value = "保存数据(数据加密处理)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1")
     })
     @Decrypt
     @Encrypt
@@ -79,7 +79,7 @@ public class DictionariesController extends BaseController {
     @ControllerMethodLog(desc = "删除数据", operModule = "数据字典", operType = OperateLogType.DELETE, serviceClass = DictionariesService.class, entityBeanClass = Dictionaries.class)
     @ApiOperation(value = "删除多条数据(数据加密处理)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path",  dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "ids", value = "ids",  required = true, dataType = "String")
     })
     @Encrypt
@@ -99,7 +99,7 @@ public class DictionariesController extends BaseController {
 
     @ApiOperation(value = "分页列表数据(数据加密处理)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1")
     })
     @GetMapping(value = "table/dict/g")
     @ApiVersion(1)
@@ -115,7 +115,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典tree 结构数据 (只包含正常数据  禁用数据不展示)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "Long")
     })
     @GetMapping(value = "tree/dict/z")
@@ -132,7 +132,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "根据 fullParentCode 获取  字典tree 结构数据 (只包含正常数据  禁用数据不展示)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "codes", value = "codes",  required = true, dataType = "String")
     })
     @GetMapping(value = "tree/dict/p/z")
@@ -149,7 +149,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典tree 结构数据 (包含禁用数据 )")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path",  dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "id", value = "id",  required = true, dataType = "Long")
     })
     @GetMapping(value = "tree/dict/all/z")
@@ -168,7 +168,7 @@ public class DictionariesController extends BaseController {
     @ControllerMethodLog(desc = "修改数据状态", operModule = "数据字典", operType = OperateLogType.UPDATE, paramIsArray = true, serviceClass = DictionariesService.class, entityBeanClass = Dictionaries.class, findDataMethod = "findByIdIn")
     @ApiOperation(value = "批量修改数据状态(数据加密处理)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "ids", value = "ids",  required = true, dataType = "String"),
             @ApiImplicitParam(name = "status", value = "status",  required = true, dataType = "integer")
     })
@@ -188,7 +188,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典 Combox")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "parentCode", value = "父级字典代码",  required = true),
             @ApiImplicitParam(name = "empty", value = "是否第一项是空",  required = true),
     })
@@ -207,7 +207,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典 Combox (数据加密处理)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path",  dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "parentCode", value = "父级字典代码",  required = true),
             @ApiImplicitParam(name = "empty", value = "是否第一项是空",  required = true)
     })
@@ -227,7 +227,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典代码转换为字典值")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path",  dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "parentCode", value = "父级字典代码",  required = true),
             @ApiImplicitParam(name = "dictCode", value = "字典代码",  required = true)
     })
@@ -249,7 +249,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典 fullParentCode 父级代码 转换为字典值 map")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "fullParentCode", value = "父级字典代码",  required = true)
 
     })
@@ -267,7 +267,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "字典 fullParentCode 父级代码 转换为字典值 map")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1"),
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path",  dataType = "String", defaultValue = "v1"),
             @ApiImplicitParam(name = "fullParentCodes", value = "父级字典代码",  required = true),
             @ApiImplicitParam(name = "dictLevel", value = "层次级别",  required = false)
     })
@@ -287,7 +287,7 @@ public class DictionariesController extends BaseController {
      */
     @ApiOperation(value = "同步数据")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path", required = true, dataType = "integer", defaultValue = "v1")
+            @ApiImplicitParam(name = "version", value = "版本号", paramType = "path",  dataType = "String", defaultValue = "v1")
     })
     @PostMapping(value = "verify/dict/sync")
     @ApiVersion(1)
