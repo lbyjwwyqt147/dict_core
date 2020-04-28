@@ -27,7 +27,7 @@ import javax.persistence.Version;
  * @author ljy
  */
 @Data
-@Entity
+@Entity(name = "dictionaries")
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
